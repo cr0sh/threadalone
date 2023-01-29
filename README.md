@@ -1,3 +1,13 @@
+ThreadAlone\<T\>
+================
+
+This is a fork of dtolnay's [`threadbound`](https://github.com/dtolnay/threadbound) crate, which allows implementing `Send` on non-`Copy` types.
+
+The reason that the original crate does not allow it is, if a `ThreadBound` object dropped on another thread from where it was created, it cannot be handled in any way.
+Instead, this crate **aborts** if that happens: so be very cautious when using this crate on multi-threaded environemnt.
+
+---
+
 ThreadBound\<T\>
 ================
 
