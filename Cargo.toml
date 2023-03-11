@@ -1,7 +1,7 @@
 [package]
-name = "threadbound"
+name = "threadalone"
 version = "0.1.0"
-authors = ["David Tolnay <dtolnay@gmail.com>", "Junghyun Nam <hyun@cro.sh>"]
+authors = ["Junghyun Nam <hyun@cro.sh>", "David Tolnay <dtolnay@gmail.com>"]
 categories = ["concurrency", "rust-patterns"]
 description = "Make any value Send + Sync but only available on its original thread. Don't use on multi-threaded environments!"
 documentation = "https://docs.rs/threadalone"

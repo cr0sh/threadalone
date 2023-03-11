@@ -27,7 +27,7 @@
 //! use std::marker::PhantomData;
 //! use std::rc::Rc;
 //! use std::sync::Arc;
-//! use threadbound::ThreadAlone;
+//! use threadalone::ThreadAlone;
 //!
 //! // Neither Send nor Sync. Maybe the index points into a
 //! // thread-local interner.
@@ -69,7 +69,7 @@
 //! }
 //! ```
 
-#![doc(html_root_url = "https://docs.rs/threadbound/0.1.5")]
+#![doc(html_root_url = "https://docs.rs/threadalone/0.1.0")]
 #![allow(clippy::doc_markdown)]
 
 use std::fmt::{self, Debug};
