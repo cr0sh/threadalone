@@ -90,8 +90,9 @@ pub struct ThreadAlone<T> {
 unsafe impl<T> Sync for ThreadAlone<T> {}
 
 // Unlike the original ThreadBound type, there is no T: Copy predicate, as dropping
-// on another thread will never happen (in single-threaded context) and will abort if it happens.
-unsafe impl<T: Copy> Send for ThreadAlone<T> {}
+// on another thread will never happen (in single-threaded context) and will
+// abort if it really happens.
+unsafe impl<T> Send for ThreadAlone<T> {}
 
 impl<T> ThreadAlone<T> {
     /// Binds a value to the current thread. The wrapper can be sent around to
