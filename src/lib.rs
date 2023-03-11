@@ -73,7 +73,10 @@
 #![allow(clippy::doc_markdown)]
 
 use std::fmt::{self, Debug};
+use std::pin::Pin;
 use std::thread::{self, ThreadId};
+
+use pin_project::{pin_project, pinned_drop};
 
 /// ThreadAlone is a Sync-maker and Send-maker that allows accessing a value
 /// of type T only from the original thread on which the ThreadAlone was
@@ -82,7 +85,9 @@ use std::thread::{self, ThreadId};
 /// Refer to the [crate-level documentation] for a usage example.
 ///
 /// [crate-level documentation]: index.html
+#[pin_project(PinnedDrop)]
 pub struct ThreadAlone<T> {
+    #[pin]
     value: Option<T>,
     thread_id: ThreadId,
 }
@@ -151,8 +156,9 @@ impl<T: Debug> Debug for ThreadAlone<T> {
     }
 }
 
-impl<T> Drop for ThreadAlone<T> {
-    fn drop(&mut self) {
+#[pinned_drop]
+impl<T> PinnedDrop for ThreadAlone<T> {
+    fn drop(self: Pin<&mut Self>) {
         if thread::current().id() != self.thread_id {
             eprintln!("called Drop on another thread");
             std::process::abort();
