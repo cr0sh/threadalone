@@ -73,6 +73,7 @@
 #![allow(clippy::doc_markdown)]
 
 use std::fmt::{self, Debug};
+use std::io::{stderr, Write};
 use std::pin::Pin;
 use std::thread::{self, ThreadId};
 
@@ -160,7 +161,7 @@ impl<T: Debug> Debug for ThreadAlone<T> {
 impl<T> PinnedDrop for ThreadAlone<T> {
     fn drop(self: Pin<&mut Self>) {
         if thread::current().id() != self.thread_id {
-            eprintln!("called Drop on another thread");
+            _ = writeln!(stderr(), "called Drop on another thread");
             std::process::abort();
         }
     }
