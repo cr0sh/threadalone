@@ -44,29 +44,27 @@
 //!     message: String,
 //! }
 //!
-//! fn main() {
-//!     let err = Error {
-//!         span: ThreadAlone::new(Span {
-//!             index: 99,
-//!             marker: PhantomData,
-//!         }),
-//!         message: "fearless concurrency".to_owned(),
-//!     };
+//! let err = Error {
+//!     span: ThreadAlone::new(Span {
+//!         index: 99,
+//!         marker: PhantomData,
+//!     }),
+//!     message: "fearless concurrency".to_owned(),
+//! };
 //!
-//!     // Original thread can see the contents.
-//!     assert_eq!(err.span.get_ref().unwrap().index, 99);
+//! // Original thread can see the contents.
+//! assert_eq!(err.span.get_ref().unwrap().index, 99);
 //!
-//!     let err = Arc::new(err);
-//!     let err2 = err.clone();
-//!     std::thread::spawn(move || {
-//!         // Other threads cannot get access. Maybe they use
-//!         // a default value or a different codepath.
-//!         assert!(err2.span.get_ref().is_none());
-//!     });
+//! let err = Arc::new(err);
+//! let err2 = err.clone();
+//! std::thread::spawn(move || {
+//!     // Other threads cannot get access. Maybe they use
+//!     // a default value or a different codepath.
+//!     assert!(err2.span.get_ref().is_none());
+//! });
 //!
-//!     // Original thread can still see the contents.
-//!     assert_eq!(err.span.get_ref().unwrap().index, 99);
-//! }
+//! // Original thread can still see the contents.
+//! assert_eq!(err.span.get_ref().unwrap().index, 99);
 //! ```
 
 #![doc(html_root_url = "https://docs.rs/threadalone/0.1.0")]
