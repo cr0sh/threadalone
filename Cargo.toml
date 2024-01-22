@@ -1,6 +1,6 @@
 [package]
 name = "threadalone"
-version = "0.2.0"
+version = "0.2.1"
 authors = ["Junghyun Nam <hyun@cro.sh>", "David Tolnay <dtolnay@gmail.com>"]
 categories = ["concurrency", "rust-patterns"]
 description = "Make any value Send + Sync but only available on its original thread. Don't use on multi-threaded environments!"
